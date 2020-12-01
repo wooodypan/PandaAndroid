@@ -2,4 +2,6 @@
     <string name="app_name">AppJAVA</string>
     <string name="edit_message">Enter a message</string>
     <string name="button_send">Send</string>
+    <string name="_666">666</string>
+    <string name="button">Button</string>
 </resources>
