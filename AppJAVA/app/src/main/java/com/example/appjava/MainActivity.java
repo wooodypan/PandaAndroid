@@ -1,10 +1,13 @@
 package com.example.appjava;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -45,4 +48,30 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(MainActivity.this, msg,
                 Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+//        启动时调用，先创建好弹出菜单
+//        return super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        点击菜单某个选项时调用
+//        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.add_item:
+                Toast.makeText(this, "You clicked Add", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.remove_item:
+                Toast.makeText(this, "You clicked Remove", Toast.LENGTH_SHORT).show();
+                break;
+            default:
+        }
+        return true;
+    }
+
 }
