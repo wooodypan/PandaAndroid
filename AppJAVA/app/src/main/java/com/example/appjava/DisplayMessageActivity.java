@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class DisplayMessageActivity extends AppCompatActivity {
@@ -20,4 +21,11 @@ public class DisplayMessageActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.textView);
         textView.setText(message);
     }
+
+    // https://stackoverflow.com/a/24880547
+    // You could add android:textAllCaps="false" to the button.
+    public void finishActivity(View view) {
+        finish();
+    }
+
 }
