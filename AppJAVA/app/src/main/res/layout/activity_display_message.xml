@@ -56,6 +56,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/send_data_to_last_activity"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="252dp" />
+        app:layout_constraintTop_toBottomOf="@+id/button4"
+        tools:layout_editor_absoluteX="32dp" />
+
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="gotoHttpURLConnectionActivity"
+        android:text="HttpURLConnection"
+        app:layout_constraintTop_toBottomOf="@+id/send_data_to_last_activity"
+        tools:layout_editor_absoluteX="32dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

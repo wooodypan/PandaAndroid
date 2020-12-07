@@ -57,4 +57,14 @@ public class DisplayMessageActivity extends AppCompatActivity {
         intent.setData(Uri.parse("https://www.baidu.com"));
         startActivity(intent);
     }
+
+    public void gotoHttpURLConnectionActivity(View view) {
+        Intent intent = new Intent(this, HttpURLConnectionActivity.class);
+//        EditText editText = (EditText) findViewById(R.id.editText);
+//        String message = editText.getText().toString();
+//        intent.putExtra(EXTRA_MESSAGE, message);
+        startActivity(intent);
+    }
+
+
 }
