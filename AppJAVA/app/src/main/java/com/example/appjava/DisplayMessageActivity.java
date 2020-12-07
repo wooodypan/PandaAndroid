@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class DisplayMessageActivity extends AppCompatActivity {
@@ -21,8 +22,27 @@ public class DisplayMessageActivity extends AppCompatActivity {
         //捕获TextView的布局并将字符串设置为其文本
         TextView textView = findViewById(R.id.textView);
         textView.setText(message);
-    }
 
+        //返回数据给上一个Activity
+        Button button2 = (Button) findViewById(R.id.send_data_to_last_activity);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.putExtra("data_return", "Hello FirstActivity");
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+    }
+    //重写点击返回按钮方法，当用户按下Back键，就会去执行onBackPressed() 方法
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent();
+        intent.putExtra("data_return", "Hello FirstActivity");
+        setResult(RESULT_OK, intent);
+        finish();
+    }
     // https://stackoverflow.com/a/24880547
     // You could add android:textAllCaps="false" to the button.
     public void finishActivity(View view) {

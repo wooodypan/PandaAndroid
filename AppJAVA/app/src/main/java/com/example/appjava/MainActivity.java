@@ -41,7 +41,9 @@ public class MainActivity extends AppCompatActivity {
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
 //        将启动一个由 Intent 指定的 DisplayMessageActivity 实例
-        startActivity(intent);
+//        startActivity(intent);
+        //从下一个Activity返回时，可以带回一些数据到这个Activity
+        startActivityForResult(intent, 1);
     }
     // 隐式Intent的用法
     public void sendMessage2(View view) {
@@ -54,6 +56,21 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    String returnedData = data.getStringExtra("data_return");
+                    Log.d("FirstActivity", returnedData);
+                }
+                break;
+            default:
+        }
+    }
+
 //    弹出Toast
     public void toastMessage(String msg) {
         Toast.makeText(MainActivity.this, msg,
