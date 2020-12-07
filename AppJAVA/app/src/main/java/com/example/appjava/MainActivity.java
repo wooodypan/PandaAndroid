@@ -43,6 +43,17 @@ public class MainActivity extends AppCompatActivity {
 //        将启动一个由 Intent 指定的 DisplayMessageActivity 实例
         startActivity(intent);
     }
+    // 隐式Intent的用法
+    public void sendMessage2(View view) {
+        Intent intent = new Intent("com.example.appjava.PPACTION");
+        // android.intent.category.DEFAULT 是一种默认的category,要么不写，要么添加下面的Category跟AndroidManifest.xml对应
+        intent.addCategory("com.example.appjava.PPCATEGORY");
+        // Verify that the intent will resolve to an activity
+        //防止闪退： https://developer.android.com/guide/components/intents-filters#ExampleSend
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
 //    弹出Toast
     public void toastMessage(String msg) {
         Toast.makeText(MainActivity.this, msg,
