@@ -102,4 +102,9 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    public void gotoLinearLayoutActivity(View view) {
+        Intent intent = new Intent(this, LinearLayoutActivity.class);
+        startActivity(intent);
+    }
+
 }

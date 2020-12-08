@@ -7,4 +7,5 @@
     <string name="finish_activity">Finish Activity</string>
     <string name="implicit_intents">调用系统的浏览器</string>
     <string name="send_data_to_last_activity">返回数据给上一个活动</string>
+    <string name="linear_layout_demo">Demo列表</string>
 </resources>
