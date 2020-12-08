@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 // 注意 implements View.OnClickListener ！！！
@@ -42,6 +43,9 @@ public class LinearLayoutActivity extends AppCompatActivity implements View.OnCl
         Button unbindService = (Button) findViewById(R.id.unbind_service);
         bindService.setOnClickListener(this);
         unbindService.setOnClickListener(this);
+
+        Button startIntentService = (Button) findViewById(R.id.start_intent_service);
+        startIntentService.setOnClickListener(this);
     }
 
     @Override
@@ -62,6 +66,14 @@ public class LinearLayoutActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.unbind_service:
                 unbindService(connection); // 解绑服务
+                break;
+
+            case R.id.start_intent_service:
+                // 打印主线程的id
+                Log.d("===", "Thread id is " + Thread.currentThread().
+                        getId());
+                Intent intentService = new Intent(this, PandaIntentService.class);
+                startService(intentService);
                 break;
             default:
                 break;

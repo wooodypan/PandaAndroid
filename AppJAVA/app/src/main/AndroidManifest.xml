@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.appjava">
+
     <!-- 访问网络的权限申请 -->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,7 +12,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LinearLayoutActivity"></activity>
+        <service
+            android:name=".PandaIntentService"
+            android:exported="false"></service>
+
+        <activity android:name=".LinearLayoutActivity" />
 
         <service
             android:name=".PandaService"
