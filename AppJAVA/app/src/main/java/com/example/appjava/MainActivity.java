@@ -106,5 +106,8 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LinearLayoutActivity.class);
         startActivity(intent);
     }
-
+    public void gotoDownloadActivity(View view) {
+        Intent intent = new Intent(this, DownloadActivity.class);
+        startActivity(intent);
+    }
 }

@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.appjava">
-
     <!-- 访问网络的权限申请 -->
     <uses-permission android:name="android.permission.INTERNET" />
+<!--    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
+    <!-- 如果RandomAccessFile报错：java.io.FileNotFoundException: /storage/emulated/0/Download/XXX: open failed: EACCES (Permission denied)-->
+    <!-- android:requestLegacyExternalStorage 属性默认为“ false” on apps targeting Android Q.https://stackoverflow.com/a/57804657 -->
+    <!--在您的应用与分区存储完全兼容之前，您可以使用以下方法之一暂时停用分区存储。如果您以 Android 10（API 级别 29）或更高版本为目标平台，请在应用的清单文件中将 requestLegacyExternalStorage 的值设置为 true：-->
+    <!--https://developer.android.com/training/data-storage/use-cases#opt-out-scoped-storage-->
     <application
+        android:requestLegacyExternalStorage="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".DownloadActivity"></activity>
+
+        <service
+            android:name=".DownloadService"
+            android:enabled="true"
+            android:exported="false" />
         <service
             android:name=".PandaIntentService"
-            android:exported="false"></service>
+            android:exported="false" />
 
         <activity android:name=".LinearLayoutActivity" />
 
