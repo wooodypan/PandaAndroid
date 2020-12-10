@@ -33,6 +33,8 @@ public class DownloadService extends Service {
 
     private String downloadUrl;
 
+    private String NOTIFICATION_CHANNEL_ID = "com.example.appjava.channelid";
+
     //001 首先这里创建了一个DownloadListener 的匿名类实例，
 // 并在匿名类中实现了onProgress() 、onSuccess() 、onFailed() 、onPaused() 和onCanceled() 这5个方法
     private DownloadListener listener = new DownloadListener() {
@@ -40,7 +42,7 @@ public class DownloadService extends Service {
         public void onProgress(int progress) {
             //002 构建了一个用于显示下载进度的通知，然后调用NotificationManager的notify() 方法去触发这个通知
             // 这样就可以在下拉状态栏中实时看到当前下载的进度了
-            getNotificationManager().notify(1, getNotification("PW Downloading..."+Integer.toString(progress),
+            getNotificationManager().notify(1, getNotification("PP Downloading..."+Integer.toString(progress),
                     progress));
         }
 
@@ -90,12 +92,13 @@ public class DownloadService extends Service {
 
         public void startDownload(String url) {
             if (downloadTask == null) {
+                pp_createNotificationChannel();
                 downloadUrl = url;
                 downloadTask = new DownloadTask(listener);
                 //006 调用execute() 方法开启下载，并将下载文件的URL地址传入到execute() 方法中
                 downloadTask.execute(downloadUrl);
                 //007 同时，为了让这个下载服务成为一个前台服务，我们还调用了startForeground() 方法，这样就会在系统状态栏中创建一个持续运行的通知了。
-                startForeground(1, getNotification("Downloading...", 0));
+                startForeground(1, getNotification("PP 开始Downloading...", 0));
                 Toast.makeText(DownloadService.this, "Downloading...", Toast.LENGTH_SHORT).show();
             }
         }
@@ -131,9 +134,21 @@ public class DownloadService extends Service {
     private NotificationManager getNotificationManager() {
         return (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
     }
+    //未使用
+    private Notification pp_getNotification(String title, int progress) {
+        Log.d("====下载进度：",Integer.toString(progress));
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(title)
+                .setContentText(Integer.toString(progress) + "%")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        return builder.build();
+    }
+
     private Notification getNotification(String title, int progress) {
         Log.d("====下载进度：",Integer.toString(progress));
-
+        //点击状态栏打开DownloadActivity
         Intent intent = new Intent(this, DownloadActivity.class);
         PendingIntent pi = PendingIntent.getActivity(this, 0, intent, 0);
 
@@ -143,25 +158,11 @@ public class DownloadService extends Service {
         //https://stackoverflow.com/a/51281297
         // Java 解决方案(android9.0，api28)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            String NOTIFICATION_CHANNEL_ID = "com.example.appjava";
-            String channelName = "My Background Service";
-            NotificationChannel chan = new NotificationChannel(NOTIFICATION_CHANNEL_ID, channelName, NotificationManager.IMPORTANCE_NONE);
-            chan.setLightColor(Color.BLUE);
-            chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
-            NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            assert manager != null;
-            manager.createNotificationChannel(chan);
             //NotificationCompat.Builder 构造函数要求您提供渠道 ID。
             // 这是兼容 Android 8.0（API 级别 26）及更高版本所必需的，但会被较旧版本忽略
             // https://developer.android.com/training/notify-user/build-notification?hl=zh-cn
             builder = new NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID);
-
         }
-
-
-
-
-
 
 
         builder.setSmallIcon(R.mipmap.ic_launcher);
@@ -178,6 +179,21 @@ public class DownloadService extends Service {
         return builder.build();
     }
 
-
+    private void pp_createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = getString(R.string.channel_name);
+            String description = getString(R.string.channel_description);
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(NOTIFICATION_CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+//            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
 
 }

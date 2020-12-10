@@ -9,4 +9,8 @@
     <string name="send_data_to_last_activity">返回数据给上一个活动</string>
     <string name="linear_layout_demo">Demo列表</string>
     <string name="downloadService">DownloadService</string>
+    <string name="channel_name">pp_channel_name</string>
+    <string name="channel_description">pp_channel_description</string>
+
+
 </resources>
