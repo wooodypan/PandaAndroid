@@ -46,6 +46,10 @@ public class LinearLayoutActivity extends AppCompatActivity implements View.OnCl
 
         Button startIntentService = (Button) findViewById(R.id.start_intent_service);
         startIntentService.setOnClickListener(this);
+
+        //Web
+        Button Webview = (Button) findViewById(R.id.goToWebActivity);
+        Webview.setOnClickListener(this);
     }
 
     @Override
@@ -75,6 +79,9 @@ public class LinearLayoutActivity extends AppCompatActivity implements View.OnCl
                 Intent intentService = new Intent(this, PandaIntentService.class);
                 startService(intentService);
                 break;
+            case R.id.goToWebActivity:
+                Intent intent = new Intent(this, WebActivity.class);
+                startActivity(intent);
             default:
                 break;
         }
